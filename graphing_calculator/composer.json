@@ -1,0 +1,17 @@
+{
+    "name": "root/graphing_calculator",
+    "require": {
+        "phpspec/phpspec": "~2.0"
+    },
+    "autoload": {
+      "psr-4": {
+        "": "src/"
+      }
+    },
+    "authors": [
+        {
+            "name": "Erik Aybar",
+            "email": "eaybar@practicegenius.com"
+        }
+    ]
+}
