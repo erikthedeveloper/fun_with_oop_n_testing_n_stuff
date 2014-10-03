@@ -2,13 +2,18 @@
 
 namespace GraphCalc;
 
+/**
+ * Class InfixToPostfix
+ * @package GraphCalc
+ * @author  Erik Aybar
+ */
 class InfixToPostfix
 {
 
     /**
      * @var array
      */
-    protected $operators = [
+    protected $operators_to_values = [
         '+' => 1,
         '-' => 1,
         '*' => 2,
@@ -26,33 +31,24 @@ class InfixToPostfix
         $stack = [];
         $items = explode(" ", $infix_string);
 
-        foreach ($items as $item) {
+        // Numbers and x go directly onto string
+            // new_item -> string
+        // Operations go onto stack
+            // if stack empty:
+                // new_op -> stack
+            // elif stack_last_op < new_op:
+                // new_op -> stack
+            // elif stack_last_op >= new_op:
+                // stack_last_op -> string
+                // new_op -> stack
+                // ?? If there is another operation in the stack move that one to the string as well.
 
-            if ((int) $item || $item == 'x') {
-                $postfix_string .= $item . " ";
-            } else {
-                if (count($stack) ==  0) {
-                    $stack[] = $item;
-                } else {
-                    if ($this->operators[$stack[0]] <= $this->operators[$item]){
-                        if ($item == $stack[0]) {
-                            continue;
-                        } else {
-                            $postfix_string .= array_shift($stack) . " ";
-                        }
-                    }
-                    $stack[] = $item;
-                }
-            }
-        }
-
+        // Append remaining operators onto string
         $postfix_string = rtrim($postfix_string);
-
-        foreach ($stack as $stack_item) {
-            $postfix_string .= " " . $stack_item;
+        foreach ($stack as $stack_item_operator) {
+            $postfix_string .= " " . $stack_item_operator;
         }
 
-        // "x 2 9 +"
         return $postfix_string;
     }
 }
