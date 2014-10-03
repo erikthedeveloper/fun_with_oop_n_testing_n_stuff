@@ -17,8 +17,13 @@ class PostfixEvaluatorSpec extends ObjectBehavior
         $this->evaluate('8 4 2 / -')->shouldReturn(6);
     }
 
-    //function it_evaluates_insane_expression_from_class()
-    //{
-    //    $this->evaluate('7 8 x 2 ^ / - 5 x * + 4 - x 6 - *')->shouldReturn(100000000);
-    //}
+    function it_evaluates_expressions_containing_the_variable_x()
+    {
+
+    }
+
+    function it_evaluates_insane_nested_expression_with_exponents_and_parentheses_from_class()
+    {
+        //$this->evaluate('7 8 x 2 ^ / - 5 x * + 4 - x 6 - *')->shouldReturn('ANSWER NOT KNOWN');
+    }
 }

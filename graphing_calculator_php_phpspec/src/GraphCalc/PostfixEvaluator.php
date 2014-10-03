@@ -51,6 +51,9 @@ class PostfixEvaluator
             case '*':
                 $value = $el_left * $el_right;
                 break;
+            case '^':
+                $value = pow($el_left, $el_right);
+                break;
         endswitch;
 
         return $value;
