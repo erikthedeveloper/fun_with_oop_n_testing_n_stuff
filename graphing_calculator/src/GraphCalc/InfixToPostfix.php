@@ -29,7 +29,7 @@ class InfixToPostfix
         $stack          = [];
         $items          = explode(" ", $infix_string);
 
-        foreach ($items as $cur_item) {
+        foreach ($items as $cur_item):
             // - - operands
             // always straight to string
             if (preg_match('/[\dx]/', $cur_item)) {
@@ -38,7 +38,7 @@ class InfixToPostfix
                 continue;
             }
 
-            // - - "("
+            // - - "(" TODO
             // straight to stack
 
             // - - operator
@@ -46,22 +46,35 @@ class InfixToPostfix
                 array_push($stack, $cur_item);
                 continue;
             }
+
             // (a bigger can only sit on smaller)
             if ($this->opValue($cur_item) > $this->opValue($stack[count($stack) - 1])) {
                 array_push($stack, $cur_item);
+                continue;
             }
 
-            // - - ")"
+            while(
+                count($stack)
+                &&
+                $this->opValue($cur_item) <= $this->opValue($stack[count($stack) - 1])
+            ) {
+                $popped = array_pop($stack);
+                $postfix_string .= "{$popped} ";
+            }
+
+            array_push($stack, $cur_item);
+
+            // - - ")" TODO
             // pop off everything until ")"
             // Discard ")"
 
-        }
+        endforeach;
 
         // Pop remaining operators
-        foreach($stack as $operator) {
+        $reversed_stack = array_reverse($stack);
+        foreach($reversed_stack as $operator) {
             $postfix_string .= "{$operator} ";
         }
-
         $postfix_string = rtrim($postfix_string);
 
         return $postfix_string;
